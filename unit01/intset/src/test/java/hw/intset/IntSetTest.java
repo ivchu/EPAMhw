@@ -90,7 +90,7 @@ public class IntSetTest {
         IntSet set = new IntSet(TESTING_VALUES);
         IntSet forDiff = new IntSet(new int[]{0, -45, 45, 432, 1, -1});
 
-        IntSet difference = set.difference(forDiff);
+        IntSet difference = set.symmDifference(forDiff);
 
         assertFalse(difference.contains(0));
         assertFalse(difference.contains(45));

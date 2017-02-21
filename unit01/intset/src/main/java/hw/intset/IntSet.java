@@ -67,7 +67,7 @@ public class IntSet {
         return new IntSet(result);
     }
 
-    public IntSet difference(IntSet other) {
+    public IntSet symmDifference(IntSet other) {
         long[][] result = new long[2][];
         int shortArrayLength;
         int longArrayLength;
