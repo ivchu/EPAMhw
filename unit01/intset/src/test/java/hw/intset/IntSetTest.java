@@ -9,29 +9,31 @@ import static org.junit.Assert.*;
  */
 public class IntSetTest {
 
-    private static int[] testingValues = new int[]{Integer.MIN_VALUE, Integer.MAX_VALUE,
-            0, 45, -45, 432, 654, 652, 6545, -432, -43, -8648};
+    private final static int[] TESTING_VALUES = new int[]{0, 45, -45, 432, 654, 652, 6545, -432, -43, -8648};
+    private final static int[] OTHER_VALUES = new int[]{1, -1, 2, 3, 4, 5, 6, 7, 8, 9, 32, -67};
+    private final static int[] SAME_WITH_TESTING_VALUES = new int[]{0, 45, -45, 432};
 
-    private static int[] otherValues = new int[]{1, -1, 2, 3, 4, 5, 6, 7, 8, 9, 32, -67};
-
-    private static IntSet set = new IntSet(testingValues);
-    private static IntSet setOfOtherValues = new IntSet(otherValues);
+    private final static IntSet TESTING_SET = new IntSet(TESTING_VALUES);
+    private final static IntSet SET_WITH_SAME_ELEMENTS = new IntSet(SAME_WITH_TESTING_VALUES);
+    private final static IntSet SET_OF_OTHER_VALUES = new IntSet(OTHER_VALUES);
 
 
     @Test
     public void containsTest() throws Exception {
-        for (int value : testingValues) {
+        IntSet set = new IntSet(TESTING_VALUES);
+        for (int value : TESTING_VALUES) {
             assertTrue(set.contains(value));
         }
 
 
-        for (int value : otherValues) {
+        for (int value : OTHER_VALUES) {
             assertFalse(set.contains(value));
         }
     }
 
     @Test
     public void removeTest() throws Exception {
+        IntSet set = new IntSet(TESTING_VALUES);
         set.remove(45);
         set.remove(-45);
         set.remove(0);
@@ -42,6 +44,7 @@ public class IntSetTest {
 
     @Test
     public void add() throws Exception {
+        IntSet set = new IntSet(TESTING_VALUES);
         set.remove(45);
         set.remove(-45);
         set.remove(0);
@@ -54,47 +57,52 @@ public class IntSetTest {
     }
 
     @Test
+    public void isSubsetOf() throws Exception {
+        IntSet set = new IntSet(TESTING_SET);
+        assertFalse(SET_OF_OTHER_VALUES.isSubsetOf(set));
+        assertTrue(set.isSubsetOf(TESTING_SET));
+        assertTrue(SET_WITH_SAME_ELEMENTS.isSubsetOf(set));
+    }
+
+    @Test
     public void union() throws Exception {
+        IntSet set = new IntSet(TESTING_VALUES);
         int[] unionValues = new int[]{13, 14, 15, 16, -15, -16};
         IntSet setForUnion = new IntSet(unionValues);
 
-        set.union(setForUnion);
+        IntSet union = set.union(setForUnion);
 
-        for (int value : testingValues) {
-            assertTrue(set.contains(value));
+        for (int value : TESTING_VALUES) {
+            assertTrue(union.contains(value));
         }
 
         for (int value : unionValues) {
-            assertTrue(set.contains(value));
+            assertTrue(union.contains(value));
         }
 
-        for (int value : otherValues) {
-            assertFalse(set.contains(value));
+        for (int value : OTHER_VALUES) {
+            assertFalse(union.contains(value));
         }
     }
 
     @Test
     public void difference() throws Exception {
-        int[] forDiffValues = new int[]{Integer.MIN_VALUE, Integer.MAX_VALUE,
-                0, 45, -45, 432};
-        IntSet forDiff = new IntSet(forDiffValues);
+        IntSet set = new IntSet(TESTING_VALUES);
+        IntSet forDiff = new IntSet(new int[]{0, -45, 45, 432, 1, -1});
 
         IntSet difference = set.difference(forDiff);
 
-        assertFalse(difference.contains(Integer.MIN_VALUE));
-        assertFalse(difference.contains(Integer.MAX_VALUE));
         assertFalse(difference.contains(0));
         assertFalse(difference.contains(45));
         assertFalse(difference.contains(-45));
         assertFalse(difference.contains(432));
-
-        for (int value : otherValues) {
-            assertTrue(difference.contains(value));
-        }
+        assertTrue(difference.contains(1));
+        assertTrue(difference.contains(-1));
     }
 
     @Test
     public void intersect() throws Exception {
+        IntSet set = new IntSet(TESTING_VALUES);
         int[] sameWithTestingValues = new int[]{0, 45, -45, 432, 654, 652};
         IntSet setWithSameElements = new IntSet(sameWithTestingValues);
 
@@ -107,19 +115,10 @@ public class IntSetTest {
         assertTrue(intersect.contains(654));
         assertTrue(intersect.contains(652));
 
-        for (int value : otherValues) {
+        for (int value : OTHER_VALUES) {
             assertFalse(intersect.contains(value));
         }
     }
 
-    @Test
-    public void isSubsetOf() throws Exception {
-        int[] sameWithTestingValues = new int[]{0, 45, -45, 432, 654, 652};
-        IntSet setWithSameElements = new IntSet(sameWithTestingValues);
-
-        assertFalse(setOfOtherValues.isSubsetOf(set));
-        assertTrue(set.isSubsetOf(set));
-        assertTrue(setWithSameElements.isSubsetOf(set));
-    }
 
 }

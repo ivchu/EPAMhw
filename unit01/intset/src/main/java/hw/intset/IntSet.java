@@ -1,9 +1,6 @@
 package hw.intset;
 
 
-/**
- * Created by MM8 on 19.02.2017.
- */
 public class IntSet {
     private long[][] data = new long[][]{{0}, {0}};
 
@@ -25,6 +22,10 @@ public class IntSet {
         }
     }
 
+    public IntSet(IntSet intset) {
+        this.data = intset.getData();
+    }
+
     public void remove(int value) {
         getArray(value)[getInsertIndex(value)] &= ~(1L << Math.abs(value));
     }
@@ -43,21 +44,22 @@ public class IntSet {
         return res != 0;
     }
 
+
     public IntSet union(IntSet other) {
         long[][] result = new long[2][];
-        int shortArray;
-        int longArray;
+        long[] shortArray;
+        long[] longArray;
         for (int i = 0; i < 2; i++) {
             if (this.getData()[i].length > other.getData()[i].length) {
-                longArray = this.getData()[i].length;
-                shortArray = other.getData()[i].length;
+                longArray = this.getData()[i];
+                shortArray = other.getData()[i];
             } else {
-                longArray = other.getData()[i].length;
-                shortArray = this.getData()[i].length;
+                longArray = other.getData()[i];
+                shortArray = this.getData()[i];
             }
-            long[] temp = new long[longArray];
-            System.arraycopy(this.getData()[i], 0, temp, 0, longArray);
-            for (int j = 0; j < shortArray; j++) {
+            long[] temp = new long[longArray.length];
+            System.arraycopy(longArray, 0, temp, 0, longArray.length);
+            for (int j = 0; j < shortArray.length; j++) {
                 temp[j] |= other.getData()[i][j];
             }
             result[i] = temp;
@@ -66,57 +68,63 @@ public class IntSet {
     }
 
     public IntSet difference(IntSet other) {
-        int commonWords = Math.min(getSize(), other.getSize());
-        int maxLength = Math.max(getSize(), other.getSize());
-
-        long[] newData = new long[getSize() < other.getSize() ? getSize() : other.getSize()];
-
-        for (int i = 0; i < commonWords; i++) {
-            newData[i] = getData()[i] ^ other.getData()[i];
+        long[][] result = new long[2][];
+        int shortArrayLength;
+        int longArrayLength;
+        for (int i = 0; i < 2; i++) {
+            shortArrayLength = Math.min(this.getData()[i].length, other.getData()[i].length);
+            longArrayLength = Math.max(this.getData()[i].length, other.getData()[i].length);
+            long[] temp = new long[longArrayLength];
+            System.arraycopy(this.getData()[i].length > other.getData()[i].length ? this.getData()[i] : other.getData()[i]
+                    , shortArrayLength, temp, shortArrayLength, longArrayLength - shortArrayLength);
+            for (int j = 0; j < shortArrayLength; j++) {
+                temp[j] = this.getData()[i][j] ^ other.getData()[i][j];
+            }
+            result[i] = temp;
         }
-
-        if (commonWords < other.getSize()) {
-            System.arraycopy(other.data,
-                    commonWords,
-                    newData,
-                    commonWords,
-                    maxLength - commonWords);
-        }
-        return new IntSet(newData);
-        return null;
+        return new IntSet(result);
     }
 
     public IntSet intersect(IntSet other) {
-        int newLength;
-        if (this.getData().length > other.getData().length) {
-            newLength = this.getData().length;
-        } else {
-            newLength = other.getData().length;
-        }
-        final long[] result = new long[newLength];
-        for (int i = 0; i < newLength; i++) {
-            result[i] = this.getData()[i] & other.getData()[i];
+        long[][] result = new long[2][];
+        int shortArrayLength;
+        int longArrayLength;
+        for (int i = 0; i < 2; i++) {
+            if (this.getData()[i].length > other.getData()[i].length) {
+                longArrayLength = this.getData()[i].length;
+                shortArrayLength = other.getData()[i].length;
+            } else {
+                longArrayLength = other.getData()[i].length;
+                shortArrayLength = this.getData()[i].length;
+            }
+            long[] temp = new long[longArrayLength];
+            System.arraycopy(this.getData()[i].length > other.getData()[i].length ? this.getData()[i] : other.getData()[i]
+                    , 0, temp, 0, longArrayLength);
+            for (int j = 0; j < shortArrayLength; j++) {
+                temp[j] &= other.getData()[i][j];
+            }
+            result[i] = temp;
         }
         return new IntSet(result);
-        return null;
     }
 
-
     public boolean isSubsetOf(IntSet other) {
-        int newLength;
-        if (other.getData().length < this.getData().length) {
-            return false;
-        }
-        for (int i = 0; i < this.getData().length; i++) {
-            if (this.getData()[i] == 0) {
-                continue;
-            }
-            if (this.getData()[i] != other.getData()[i]) {
+        for (int i = 0; i < 2; i++) {
+            if (other.getData()[i].length < this.getData()[i].length) {
                 return false;
+            }
+            for (int j = 0; j < this.getData()[i].length; j++) {
+                if (this.getData()[i][j] == 0) {
+                    continue;
+                }
+                if ((this.getData()[i][j] & other.getData()[i][j]) == 0) {
+                    return false;
+                }
             }
         }
         return true;
     }
+
 
     private void resize(int value) {
         int insertIndex = getInsertIndex(value);
