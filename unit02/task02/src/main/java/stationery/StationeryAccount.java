@@ -11,6 +11,9 @@ public class StationeryAccount {
     List<OfficeWorker> workers = new ArrayList<>();
 
     public void addWorker(OfficeWorker worker) {
+        if (worker == null){
+            throw new NullPointerException();
+        }
         workers.add(worker);
     }
 
@@ -19,12 +22,12 @@ public class StationeryAccount {
     }
 
     public int getAllStationeryCost() {
-        int cost = -1;
+        int cost = 0;
         for (OfficeWorker worker : workers) {
             for (Stationery statipnery : worker.getStationeries()){
                 cost += statipnery.getCost();
             }
         }
-        return cost + 1;
+        return cost;
     }
 }

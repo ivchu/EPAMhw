@@ -11,15 +11,18 @@ public class OfficeWorker {
     private String workerName;
     private List Statoneries = new ArrayList<Stationery>();
 
-    public OfficeWorker(String workerName){
+    public OfficeWorker(String workerName) {
+        if (workerName == null){
+            throw new NullPointerException();
+        }
         this.workerName = workerName;
     }
 
-    public void addStationery(Stationery newStationery){
+    public void addStationery(Stationery newStationery) {
         Statoneries.add(newStationery);
     }
 
-    public List<Stationery> getStationeries(){
+    public List<Stationery> getStationeries() {
         return Collections.unmodifiableList(Statoneries);
     }
 

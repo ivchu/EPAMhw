@@ -7,7 +7,10 @@ public class Stationery {
     private int cost;
     private String stationeryName;
 
-    public Stationery(String stationeryName, int cost){
+    public Stationery(String stationeryName, int cost) {
+        if ((stationeryName == null) || (cost < 0)){
+            throw new NullPointerException();
+        }
         this.stationeryName = stationeryName;
         this.cost = cost;
     }
