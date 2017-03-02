@@ -22,4 +22,8 @@ public class StudentsGroupCreator {
         }
         return studentsInDiscipline;
     }
+
+    public int getOverallAmountOfStudents(){
+        return allStudents.size();
+    }
 }

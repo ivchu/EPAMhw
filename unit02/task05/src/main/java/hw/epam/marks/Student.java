@@ -10,13 +10,21 @@ import java.util.Map;
 public class Student {
     private Map<Disciplines, Mark> particapatingDisciplines = new HashMap<>();
 
-    public void addDisciplineWithMark (Disciplines discipline, Mark mark){
+    public Student() {
+
+    }
+
+    public Student(Disciplines discipline, Mark mark) {
+        addDisciplineWithMark(discipline, mark);
+    }
+
+    public void addDisciplineWithMark(Disciplines discipline, Mark mark) {
         if (discipline.canDisciplineAcceptThisKindOfMark(discipline, mark)) {
             particapatingDisciplines.put(discipline, mark);
         }
     }
 
-    public Map<Disciplines, Mark> getParticapatingDisciplines(){
+    public Map<Disciplines, Mark> getParticapatingDisciplines() {
         return Collections.unmodifiableMap(particapatingDisciplines);
     }
 }
