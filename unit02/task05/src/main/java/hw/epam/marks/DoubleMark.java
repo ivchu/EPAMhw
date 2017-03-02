@@ -11,7 +11,7 @@ public class DoubleMark<T extends Double> extends Mark<Double>{
     }
 
     @Override
-    protected void checkValueType(Double value) throws IllegalArgumentException {
+    protected void checkValueType(Double value) throws NullPointerException, IllegalArgumentException {
         if (Objects.isNull(value)){
             throw new NullPointerException("Mark can`t be null");
         }

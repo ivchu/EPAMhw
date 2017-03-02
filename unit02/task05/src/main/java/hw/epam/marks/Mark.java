@@ -11,5 +11,9 @@ public abstract class Mark<T extends Number> {
         this.value = value;
     }
 
-    protected abstract void checkValueType(T value) throws IllegalArgumentException;
+    protected abstract void checkValueType(T value) throws NullPointerException, IllegalArgumentException;
+
+    public T getValue() {
+        return value;
+    }
 }

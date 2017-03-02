@@ -11,7 +11,7 @@ public class IntMark<T extends Integer> extends Mark<Integer> {
     }
 
     @Override
-    protected void checkValueType(Integer value) {
+    protected void checkValueType(Integer value) throws NullPointerException, IllegalArgumentException{
         if (Objects.isNull(value)) {
             throw new NullPointerException("Mark can`t be null");
         }

@@ -10,6 +10,10 @@ public class Student {
     private Map<Disciplines, Mark> particapatingDisciplines = new HashMap<>();
 
     public void addDisciplineWithMark (Disciplines discipline, Mark mark){
-        particapatingDisciplines.put(discipline, mark);
+        if (discipline.canDisciplineAcceptThisKindOfMark(discipline, mark)) {
+            particapatingDisciplines.put(discipline, mark);
+        }
     }
+
+
 }
