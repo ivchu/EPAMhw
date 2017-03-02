@@ -1,5 +1,6 @@
 package hw.epam.marks;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,5 +16,7 @@ public class Student {
         }
     }
 
-
+    public Map<Disciplines, Mark> getParticapatingDisciplines(){
+        return Collections.unmodifiableMap(particapatingDisciplines);
+    }
 }
