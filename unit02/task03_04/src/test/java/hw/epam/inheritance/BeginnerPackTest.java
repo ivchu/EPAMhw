@@ -22,9 +22,10 @@ public class BeginnerPackTest extends TestCase {
         beginnerPack.sortByCostThenManufaturer();
         List<Stationary> gettingFromBeginnerPack = beginnerPack.getBeginnersList();
 
-        assertEquals(beginnersList, gettingFromBeginnerPack);
+        for (int i = 0; i < 4; i++) {
+            assertEquals(gettingFromBeginnerPack.get(i).getCost(), beginnersList.get(i).getCost());
+        }
     }
 
-    
 
 }

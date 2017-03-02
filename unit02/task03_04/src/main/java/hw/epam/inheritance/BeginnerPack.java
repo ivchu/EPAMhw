@@ -12,7 +12,7 @@ public class BeginnerPack {
         beginnersList.add(new Notebook(100, "Moleskin", 100));
         beginnersList.add(new Pencil(5, "bic", "grey", 1, Hardness.SOFT));
         beginnersList.add(new Ruler(10, "idk", 15));
-        beginnersList.add(new Eraser(10, "idk"));
+        beginnersList.add(new Eraser(11, "idk"));
     }
 
     private BeginnerPack() {
