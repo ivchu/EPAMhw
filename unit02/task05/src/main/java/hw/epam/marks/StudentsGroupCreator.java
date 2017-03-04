@@ -2,6 +2,7 @@ package hw.epam.marks;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by MM8 on 02.03.2017.
@@ -25,5 +26,13 @@ public class StudentsGroupCreator {
 
     public int getOverallAmountOfStudents(){
         return allStudents.size();
+    }
+
+    public List<Student> getStudentsWithMarksAbove(Mark mark){
+        List<Student> studentsWithMarkAbove = new ArrayList<>();
+        for (Student student : allStudents) {
+            for (Map.Entry)
+        }
+        return studentsWithMarkAbove;
     }
 }

@@ -1,6 +1,5 @@
 package epam.hw.CrazyLogger;
 
-import java.io.FileNotFoundException;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.NoSuchElementException;
@@ -12,26 +11,30 @@ import java.util.regex.Pattern;
 public class CrazyLogger {
     private StringBuilder log = new StringBuilder("");
     private DateTimeFormatter timeFormat = DateTimeFormatter.ofPattern("dd-MM-YYYY : hh-mm");
-    private Pattern searchPattern = new Pattern("");
-    public CrazyLogger() throws FileNotFoundException {
+    private Pattern patternOfLineInLog = Pattern.compile("");
+
+    public CrazyLogger() {
     }
 
-    public void addLog(String message){
+    public void addLog(String message) {
         ZonedDateTime logMoment = ZonedDateTime.now();
         String logAddition = logMoment.format(timeFormat) + " - " + message;
         log.append(logAddition + "\n");
     }
 
-    public String searchLog(String info){
-        if (info == null){
-            throw new NullPointerException();
+    public String searchInLog(String info) {
+        if (info == null) {
+            throw new NullPointerException("you should search smth");
         }
         String stringLog = log.toString();
-        if (stringLog.contains(info)){
+        if (stringLog.contains(info)) {
             int startOfInfo = stringLog.indexOf(info);
             // "\n + info + \n"
-            stringLog.
         }
         throw new NoSuchElementException();
+    }
+
+    public StringBuilder getLog() {
+        return log;
     }
 }
