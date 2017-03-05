@@ -30,8 +30,17 @@ public class CrazyLogger {
     }
 
     public String searchByMessage(String messageToSearch){
-        
+        if (messageToSearch.equals(null)){
+            throw new NullPointerException("message should contain some text");
+        }
         StringBuilder result = new StringBuilder("");
+        String stringLog = log.toString();
+        String[] stringsOfLog = stringLog.split("\\n");
+        for (int i = 0; i < stringsOfLog.length; i++) {
+            if (stringsOfLog[i].substring(18, stringsOfLog[i].length()).equals(messageToSearch)) {
+                result.append(stringsOfLog[i] + "\n");
+            }
+        }
         return result.toString();
     }
 
