@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by MM8 on 03.03.2017.
@@ -33,7 +33,7 @@ public class CrazyLoggerTest {
         timeOfFirstAdding = ZonedDateTime.now();
         forTestingSearchbyDate = timeOfFirstAdding.format(timeFormat);
         logger.addLog("1");
-        Thread.sleep(1000);
+        Thread.sleep(60000);
         logger.addLog("2");
         Thread.sleep(1000);
         logger.addLog("3");

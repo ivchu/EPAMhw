@@ -37,7 +37,7 @@ public class CrazyLogger {
         String stringLog = log.toString();
         String[] stringsOfLog = stringLog.split("\\n");
         for (int i = 0; i < stringsOfLog.length; i++) {
-            if (stringsOfLog[i].substring(18, stringsOfLog[i].length()).equals(messageToSearch)) {
+            if (stringsOfLog[i].substring(19, stringsOfLog[i].length()).equals(messageToSearch)) {
                 result.append(stringsOfLog[i] + "\n");
             }
         }
