@@ -12,8 +12,13 @@ public class HtmlRegexAnalizer {
     public String readTextFeomFile(String file) throws FileNotFoundException {
         StringBuilder textFromFile = new StringBuilder("");
         String line;
-        BufferedReader reader;
-        reader = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream(file), "windows-1251"));
+        } catch (UnsupportedEncodingException e) {
+            System.out.println("С кодировкой ошибься");
+            e.printStackTrace();
+        }
         try {
             while ((line = reader.readLine()) != null){
                 textFromFile.append(line + "\n");
@@ -25,35 +30,19 @@ public class HtmlRegexAnalizer {
         return textFromFile.toString();
     }
 
-    public boolean arePicturesInOrder() {
-        boolean result = false;
-        boolean contsinsPicture;
-        BufferedReader reader = null;
-        try {
-            reader = new BufferedReader(new FileReader("Java.SE.03.Information handling_task_attachment"));
-        } catch (FileNotFoundException e) {
-            System.out.println("А файла то нету");
-            e.printStackTrace();
-        }
-        String readedLine;
-        Pattern[] picturePatterns = new Pattern[]{
-                Pattern.compile(".*рис\\.[0-9]+.*"),
-                Pattern.compile(".*рисунке [0-9]+.*"),
-                Pattern.compile(".*рисиснок [0-9]+.*")};
-        try {
-            while (reader.ready()) {
-                readedLine = reader.readLine();
-                String lowReadedLine = readedLine.toLowerCase();
-                for (int i = 0; i < 3; i++) {
-                    Matcher matcher = picturePatterns[i].matcher(lowReadedLine);
-                    contsinsPicture = matcher.matches();
-                }
-                readedLine.
+    public boolean arePicturesInOrder(String text){
+        Pattern picPattern = Pattern.compile("\\([Рр]ис[.] \\d+\\)");
+        Matcher picMatcher = picPattern.matcher(text);
+
+        int picNumber = 0;
+
+        while (picMatcher.find()){
+            int curr = Integer.valueOf(picMatcher.group().charAt(6));
+            if (picNumber > curr){
+                return false;
             }
-        } catch (IOException e) {
-            System.out.println("Хуево читаем строки");
-            e.printStackTrace();
+            picNumber = curr;
         }
-        return result;
+        return true;
     }
 }
