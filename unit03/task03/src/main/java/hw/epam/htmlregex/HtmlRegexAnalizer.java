@@ -8,8 +8,10 @@ import java.util.regex.Pattern;
  * Created by MM8 on 03.03.2017.
  */
 public class HtmlRegexAnalizer {
+    private final Pattern PIC_PATTERN = Pattern.compile("\\([Рр]ис[.] \\d+\\)");
+    private final Pattern SENTENCE_PATTERN = Pattern.compile("[^.!?]+[.!?]");
 
-    public String readTextFeomFile(String file) throws FileNotFoundException {
+    public String readTextFromFile(String file) throws FileNotFoundException {
         StringBuilder textFromFile = new StringBuilder("");
         String line;
         BufferedReader reader = null;
@@ -31,8 +33,7 @@ public class HtmlRegexAnalizer {
     }
 
     public boolean arePicturesInOrder(String text){
-        Pattern picPattern = Pattern.compile("\\([Рр]ис[.] \\d+\\)");
-        Matcher picMatcher = picPattern.matcher(text);
+        Matcher picMatcher = PIC_PATTERN.matcher(text);
 
         int picNumber = 0;
 
