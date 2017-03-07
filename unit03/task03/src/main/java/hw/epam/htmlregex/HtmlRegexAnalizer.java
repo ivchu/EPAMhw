@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
  */
 public class HtmlRegexAnalizer {
     private final Pattern PIC_PATTERN = Pattern.compile("\\([Рр]ис[.] \\d+\\)");
-    private final Pattern SENTENCE_PATTERN = Pattern.compile("[^.!?]+[.!?]");
+    private final Pattern SENTENCE_PATTERN = Pattern.compile("[А-ЯA-Z].*[.!?]");
 
     public String readTextFromFile(String file) throws FileNotFoundException {
         StringBuilder textFromFile = new StringBuilder("");
@@ -22,7 +22,7 @@ public class HtmlRegexAnalizer {
             e.printStackTrace();
         }
         try {
-            while ((line = reader.readLine()) != null){
+            while ((line = reader.readLine()) != null) {
                 textFromFile.append(line + "\n");
             }
         } catch (IOException e) {
@@ -32,18 +32,27 @@ public class HtmlRegexAnalizer {
         return textFromFile.toString();
     }
 
-    public boolean arePicturesInOrder(String text){
+    public boolean arePicturesInOrder(String text) {
         Matcher picMatcher = PIC_PATTERN.matcher(text);
 
         int picNumber = 0;
 
-        while (picMatcher.find()){
+        while (picMatcher.find()) {
             int curr = Integer.valueOf(picMatcher.group().charAt(6));
-            if (picNumber > curr){
+            if (picNumber > curr) {
                 return false;
             }
             picNumber = curr;
         }
         return true;
     }
+
+    public String findSentencesWithPic(String text) {
+        Matcher sentenceMatcher = SENTENCE_PATTERN.matcher(text);
+        while (sentenceMatcher.find()) {
+            Matcher picMatcher = PIC_PATTERN.matcher(sentenceMatcher.group());
+
+        }
+    }
+
 }
