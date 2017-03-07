@@ -48,11 +48,15 @@ public class HtmlRegexAnalizer {
     }
 
     public String findSentencesWithPic(String text) {
+        StringBuilder result = new StringBuilder("");
         Matcher sentenceMatcher = SENTENCE_PATTERN.matcher(text);
         while (sentenceMatcher.find()) {
             Matcher picMatcher = PIC_PATTERN.matcher(sentenceMatcher.group());
-
+            if (picMatcher.find()){
+                result.append(sentenceMatcher.group() + "\n");
+            }
         }
+        return result.toString();
     }
 
 }
