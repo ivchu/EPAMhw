@@ -19,12 +19,23 @@ public class CharsetChangerTest {
     @Test
     public void testinginfoInFilesIsSame() throws IOException {
         byte[] bytesUTF8 = new byte[fileInputStreamUTF8.available()];
+        fileInputStreamUTF8.read(bytesUTF8);
         String stringFromUTF8 = new String(bytesUTF8, "UTF-8");
-        System.out.println(stringFromUTF8);
         testingUnit.readFromFileUTF8("C://ivan//java//epamhw//unit04//task03//src//main//input.txt");
-        System.out.println(testingUnit.changeCharsetFromUTF8ToUTF16());
+        testingUnit.writeToFileInUNTF16("C://ivan//java//epamhw//unit04//task03//src//main//output.txt");
         byte[] bytesUTF16 = new byte[fileInputStreamUTF16.available()];
+        fileInputStreamUTF16.read(bytesUTF16);
         String stringFromUTF16 = new String(bytesUTF16, "UTF-16");
         assertEquals(stringFromUTF8, stringFromUTF16);
+    }
+
+
+    @Test
+    public void testingConvertFromUTF8ToUTF16() throws IOException {
+        byte[] bytesUTF8 = new byte[fileInputStreamUTF8.available()];
+        fileInputStreamUTF8.read(bytesUTF8);
+        String stringFromUTF8 = new String(bytesUTF8, "UTF-8");
+        testingUnit.readFromFileUTF8("C://ivan//java//epamhw//unit04//task03//src//main//input.txt");
+        assertEquals(stringFromUTF8, testingUnit.changeCharsetFromUTF8ToUTF16());
     }
 }
