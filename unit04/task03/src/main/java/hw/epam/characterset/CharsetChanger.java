@@ -1,9 +1,6 @@
 package hw.epam.characterset;
 
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 
 public class CharsetChanger {
     private FileInputStream fileInputStream;
@@ -30,5 +27,18 @@ public class CharsetChanger {
         }
         String stringUTF16 = new String(infoFromFile.getBytes("UTF-16"), "UTF-16");
         return stringUTF16;
+    }
+
+    public void writeToFileInUNTF16(String outputStream) throws IOException {
+        if (infoFromFile == null){
+            throw new NullPointerException("u must read some info in UTF8");
+        }
+        if (outputStream == null){
+            throw new NullPointerException("outputStream cant be zero");
+        }
+        fileOutputStream = new FileOutputStream(outputStream);
+        fileOutputStream.write(infoFromFile.getBytes("UTF-16"));
+        fileOutputStream.flush();
+        fileOutputStream.close();
     }
 }
