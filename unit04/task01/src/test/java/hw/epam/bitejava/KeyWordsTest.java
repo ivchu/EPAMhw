@@ -3,12 +3,12 @@ package hw.epam.bitejava;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
-
 /**
  * Created by MM8 on 10.03.2017.
  */
 public class KeyWordsTest {
     static KeyWords testingUnit = new KeyWords();
+    static String infoFromFile;
     static {
         try {
             testingUnit.setInputStream("C:\\ivan\\java\\epamhw\\unit04\\task01\\src\\main\\input.txt");
@@ -26,6 +26,14 @@ public class KeyWordsTest {
     public void loadInfoFromFile() throws Exception {
         testingUnit.loadInfoFromFile();
         System.out.println(testingUnit.getInfo());
+    }
+
+
+    @Test
+    public void splitingJavaKeyWordTest() throws Exception {
+        testingUnit.loadInfoFromFile();
+
+        testingUnit.findKeyWordsInInfoFromFile();
     }
 
 }
