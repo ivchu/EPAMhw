@@ -7,9 +7,10 @@ import java.io.IOException;
 
 
 public class KeyWords {
-    private FileInputStream input = null;
-    private FileOutputStream output = null;
-    private String info = null;
+
+    private FileInputStream input;
+    private FileOutputStream output;
+    private String info;
 
     public void setInputStream(String fileName) throws FileNotFoundException {
         input = new FileInputStream(fileName);
@@ -33,5 +34,9 @@ public class KeyWords {
             throw new IOException("something wrong with the file");
         }
         info = new String(byteInfo);
+    }
+
+    public String getInfo() {
+        return info;
     }
 }
