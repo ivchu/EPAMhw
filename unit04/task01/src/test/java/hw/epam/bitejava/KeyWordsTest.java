@@ -3,6 +3,7 @@ package hw.epam.bitejava;
 import org.junit.Test;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -40,5 +41,13 @@ public class KeyWordsTest {
             System.out.println(item.getKey() + "  :  " + item.getValue());
         }
     }
+
+    @Test
+    public void outputTest() throws IOException {
+        testingUnit.loadInfoFromFile();
+        testingUnit.findKeyWordsInInfoFromFile();
+        testingUnit.writeAmountOfJavaKeysIntoNewFile();
+    }
+
 
 }

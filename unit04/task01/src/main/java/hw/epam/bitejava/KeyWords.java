@@ -14,8 +14,13 @@ public class KeyWords {
     private FileInputStream input;
     private FileOutputStream output;
     private String infoFromfile;
+    private String infoForWriting;
     private HashMap<String, Integer> javaKeyWordsMap = new HashMap<>();
 
+
+    /*
+        collection with java key words as keys
+     */
     {
         javaKeyWordsMap.put("byte", 0);
         javaKeyWordsMap.put("short", 0);
@@ -69,6 +74,8 @@ public class KeyWords {
         javaKeyWordsMap.put("strictfp", 0);
 
     }
+
+
     public void setInputStream(String fileName) throws FileNotFoundException {
         input = new FileInputStream(fileName);
     }
@@ -80,9 +87,6 @@ public class KeyWords {
     public void loadInfoFromFile() throws IOException {
         if (input == null) {
             throw new IOException("u must set input filestream");
-        }
-        if (output == null) {
-            throw new IOException("u must set output filestream");
         }
         int fileLength = input.available();
         byte[] byteInfo = new byte[fileLength];
@@ -104,6 +108,23 @@ public class KeyWords {
             }
         }
         return Collections.unmodifiableMap(javaKeyWordsMap);
+    }
+
+    private String getOutputStringFormat(){
+        String result = javaKeyWordsMap.toString();
+        result = result.replaceAll("[a-z]*\\{+", " ");
+        result = result.replaceAll("[a-z]*\\}+", " ");
+        result = result.replaceAll("\\,+", "\n");
+        return result;
+    }
+
+    public void writeAmountOfJavaKeysIntoNewFile () throws IOException {
+        if (output == null) {
+            throw new IOException("u must set output filestream");
+        }
+        String stringForOutput = getOutputStringFormat();
+        byte[] outputBytes = stringForOutput.getBytes();
+        output.write(outputBytes);
     }
 
     public String getInfo() {
