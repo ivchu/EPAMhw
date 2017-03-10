@@ -16,6 +16,12 @@ public class CharsetChangerTest {
     public CharsetChangerTest() throws FileNotFoundException {
     }
 
+    @Test(expected = NullPointerException.class)
+    public void testingNullInMethods() throws IOException {
+        testingUnit.readFromFileUTF8(null);
+        testingUnit.writeToFileInUNTF16(null);
+    }
+
     @Test
     public void testinginfoInFilesIsSame() throws IOException {
         byte[] bytesUTF8 = new byte[fileInputStreamUTF8.available()];
