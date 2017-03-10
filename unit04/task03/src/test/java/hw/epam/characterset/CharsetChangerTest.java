@@ -17,9 +17,19 @@ public class CharsetChangerTest {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testingNullInMethods() throws IOException {
+    public void testingNullInRead() throws IOException {
         testingUnit.readFromFileUTF8(null);
+    }
+
+
+    @Test(expected = NullPointerException.class)
+    public void testingNullInWrite() throws IOException {
         testingUnit.writeToFileInUNTF16(null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testingNullInChangeCharset() throws IOException {
+        testingUnit.changeCharsetFromUTF8ToUTF16();
     }
 
     @Test

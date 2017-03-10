@@ -77,16 +77,22 @@ public class KeyWords {
 
 
     public void setInputStream(String fileName) throws FileNotFoundException {
+        if (fileName == null) {
+            throw new NullPointerException("inputstream cant be null");
+        }
         this.inputFileName = fileName;
     }
 
     public void setOutputStream(String fileName) throws FileNotFoundException {
+        if (fileName == null) {
+            throw new NullPointerException("outputstream cant be null");
+        }
         this.outputFileName = fileName;
     }
 
     public void loadInfoFromFileByteInput() throws IOException {
         if (inputFileName == null) {
-            throw new IOException("u must set input filestream");
+            throw new NullPointerException("u must set input filestream");
         }
         input = new FileInputStream(inputFileName);
         int fileLength = input.available();
@@ -101,7 +107,7 @@ public class KeyWords {
 
     public void loadInfoFromFileCharInput() throws IOException {
         if (inputFileName == null) {
-            throw new IOException("u must set input filestream");
+            throw new NullPointerException("u must set input filestream");
         }
         fileReader = new FileReader(inputFileName);
         BufferedReader convinientReader = new BufferedReader(fileReader);
@@ -131,9 +137,9 @@ public class KeyWords {
         return result;
     }
 
-    public void writeAmountOfJavaKeysIntoNewFileCharOutrput() throws IOException {
+    public void writeAmountOfJavaKeysIntoNewFileCharOutput() throws IOException {
         if (outputFileName == null) {
-            throw new IOException("u must set output filestream");
+            throw new NullPointerException("u must set output filestream");
         }
         fileWriter = new FileWriter(outputFileName);
         String stringForOutput = getOutputStringFormat();
@@ -142,9 +148,9 @@ public class KeyWords {
         fileWriter.close();
     }
 
-    public void writeAmountOfJavaKeysIntoNewFileByteOutrput() throws IOException {
+    public void writeAmountOfJavaKeysIntoNewFileByteOutput() throws IOException {
         if (outputFileName == null) {
-            throw new IOException("u must set output filestream");
+            throw new NullPointerException("u must set output filestream");
         }
         output = new FileOutputStream(outputFileName);
         String stringForOutput = getOutputStringFormat();

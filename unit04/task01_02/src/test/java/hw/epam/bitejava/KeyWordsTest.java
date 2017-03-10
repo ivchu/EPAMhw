@@ -39,7 +39,7 @@ public class KeyWordsTest {
     public void outputTestByteStream() throws IOException {
         testingUnit.loadInfoFromFileByteInput();
         testingUnit.findKeyWordsInInfoFromFile();
-        testingUnit.writeAmountOfJavaKeysIntoNewFileByteOutrput();
+        testingUnit.writeAmountOfJavaKeysIntoNewFileByteOutput();
     }
 
     @Test
@@ -55,6 +55,6 @@ public class KeyWordsTest {
     public void outputTestCharStream() throws IOException {
         testingUnit.loadInfoFromFileCharInput();
         testingUnit.findKeyWordsInInfoFromFile();
-        testingUnit.writeAmountOfJavaKeysIntoNewFileCharOutrput();
+        testingUnit.writeAmountOfJavaKeysIntoNewFileCharOutput();
     }
 }
