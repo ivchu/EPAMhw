@@ -1,9 +1,6 @@
 package hw.epam.bitejava;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +10,10 @@ public class KeyWords {
 
     private FileInputStream input;
     private FileOutputStream output;
-    private String FileInputStreamName;
-    private String FileOutputStreamName;
+    private FileReader fileReader;
+    private FileWriter fileWriter;
+    private String inputFileName;
+    private String outputFileName;
     private String infoFromfile;
     private HashMap<String, Integer> javaKeyWordsMap = new HashMap<>();
 
@@ -78,18 +77,18 @@ public class KeyWords {
 
 
     public void setInputStream(String fileName) throws FileNotFoundException {
-        this.FileInputStreamName = fileName;
+        this.inputFileName = fileName;
     }
 
     public void setOutputStream(String fileName) throws FileNotFoundException {
-        this.FileOutputStreamName = fileName;
+        this.outputFileName = fileName;
     }
 
-    public void loadInfoFromFile() throws IOException {
-        if (FileInputStreamName == null) {
+    public void loadInfoFromFileByteInput() throws IOException {
+        if (inputFileName == null) {
             throw new IOException("u must set input filestream");
         }
-        input = new FileInputStream(FileInputStreamName);
+        input = new FileInputStream(inputFileName);
         int fileLength = input.available();
         byte[] byteInfo = new byte[fileLength];
         int readResult = input.read(byteInfo);
@@ -98,6 +97,18 @@ public class KeyWords {
         }
         infoFromfile = new String(byteInfo);
         input.close();
+    }
+
+    public void loadInfoFromFileCharInput() throws IOException {
+        if (inputFileName == null) {
+            throw new IOException("u must set input filestream");
+        }
+        fileReader = new FileReader(inputFileName);
+        BufferedReader convinientReader = new BufferedReader(fileReader);
+        StringBuilder builder = new StringBuilder("");
+        builder.append(convinientReader.readLine());
+        infoFromfile = builder.toString();
+        convinientReader.close();
     }
 
     public Map<String, Integer> findKeyWordsInInfoFromFile() {
@@ -120,11 +131,22 @@ public class KeyWords {
         return result;
     }
 
-    public void writeAmountOfJavaKeysIntoNewFile () throws IOException {
-        if (FileOutputStreamName == null) {
+    public void writeAmountOfJavaKeysIntoNewFileCharOutrput() throws IOException {
+        if (outputFileName == null) {
             throw new IOException("u must set output filestream");
         }
-        output = new FileOutputStream(FileOutputStreamName);
+        fileWriter = new FileWriter(outputFileName);
+        String stringForOutput = getOutputStringFormat();
+        fileWriter.write(stringForOutput);
+        fileWriter.flush();
+        fileWriter.close();
+    }
+
+    public void writeAmountOfJavaKeysIntoNewFileByteOutrput() throws IOException {
+        if (outputFileName == null) {
+            throw new IOException("u must set output filestream");
+        }
+        output = new FileOutputStream(outputFileName);
         String stringForOutput = getOutputStringFormat();
         byte[] outputBytes = stringForOutput.getBytes();
         output.write(outputBytes);

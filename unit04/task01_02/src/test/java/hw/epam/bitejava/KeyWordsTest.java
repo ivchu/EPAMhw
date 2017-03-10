@@ -15,20 +15,20 @@ public class KeyWordsTest {
 
     static {
         try {
-            testingUnit.setInputStream("C:\\ivan\\java\\epamhw\\unit04\\task01\\src\\main\\input.txt");
+            testingUnit.setInputStream("C:\\ivan\\java\\epamhw\\unit04\\task01_02\\src\\main\\input.txt");
         } catch (FileNotFoundException e) {
             throw new RuntimeException("setInputStream i came from");
         }
         try {
-            testingUnit.setOutputStream("C:\\ivan\\java\\epamhw\\unit04\\task01\\src\\main\\output.txt");
+            testingUnit.setOutputStream("C:\\ivan\\java\\epamhw\\unit04\\task01_02\\src\\main\\output.txt");
         } catch (FileNotFoundException e) {
             throw new RuntimeException("setOutputStream i came from");
         }
     }
 
     @Test
-    public void splitingJavaKeyWordTest() throws Exception {
-        testingUnit.loadInfoFromFile();
+    public void splitingJavaKeyWordTestByteStream() throws Exception {
+        testingUnit.loadInfoFromFileByteInput();
         Map<String, Integer> testingMap = testingUnit.findKeyWordsInInfoFromFile();
         for (Map.Entry<String, Integer> item : testingMap.entrySet()) {
             System.out.println(item.getKey() + "  :  " + item.getValue());
@@ -36,11 +36,25 @@ public class KeyWordsTest {
     }
 
     @Test
-    public void outputTest() throws IOException {
-        testingUnit.loadInfoFromFile();
+    public void outputTestByteStream() throws IOException {
+        testingUnit.loadInfoFromFileByteInput();
         testingUnit.findKeyWordsInInfoFromFile();
-        testingUnit.writeAmountOfJavaKeysIntoNewFile();
+        testingUnit.writeAmountOfJavaKeysIntoNewFileByteOutrput();
     }
 
+    @Test
+    public void charStreamInputtest() throws IOException {
+        testingUnit.loadInfoFromFileCharInput();
+        Map<String, Integer> testingMap = testingUnit.findKeyWordsInInfoFromFile();
+        for (Map.Entry<String, Integer> item : testingMap.entrySet()) {
+            System.out.println(item.getKey() + "  :  " + item.getValue());
+        }
+    }
 
+    @Test
+    public void outputTestCharStream() throws IOException {
+        testingUnit.loadInfoFromFileCharInput();
+        testingUnit.findKeyWordsInInfoFromFile();
+        testingUnit.writeAmountOfJavaKeysIntoNewFileCharOutrput();
+    }
 }
