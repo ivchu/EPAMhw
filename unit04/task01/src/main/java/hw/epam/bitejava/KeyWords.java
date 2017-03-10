@@ -13,8 +13,9 @@ public class KeyWords {
 
     private FileInputStream input;
     private FileOutputStream output;
+    private String FileInputStreamName;
+    private String FileOutputStreamName;
     private String infoFromfile;
-    private String infoForWriting;
     private HashMap<String, Integer> javaKeyWordsMap = new HashMap<>();
 
 
@@ -77,17 +78,18 @@ public class KeyWords {
 
 
     public void setInputStream(String fileName) throws FileNotFoundException {
-        input = new FileInputStream(fileName);
+        this.FileInputStreamName = fileName;
     }
 
     public void setOutputStream(String fileName) throws FileNotFoundException {
-        output = new FileOutputStream(fileName);
+        this.FileOutputStreamName = fileName;
     }
 
     public void loadInfoFromFile() throws IOException {
-        if (input == null) {
+        if (FileInputStreamName == null) {
             throw new IOException("u must set input filestream");
         }
+        input = new FileInputStream(FileInputStreamName);
         int fileLength = input.available();
         byte[] byteInfo = new byte[fileLength];
         int readResult = input.read(byteInfo);
@@ -95,6 +97,7 @@ public class KeyWords {
             throw new IOException("something wrong with the file");
         }
         infoFromfile = new String(byteInfo);
+        input.close();
     }
 
     public Map<String, Integer> findKeyWordsInInfoFromFile() {
@@ -114,20 +117,18 @@ public class KeyWords {
         String result = javaKeyWordsMap.toString();
         result = result.replaceAll("[a-z]*\\{+", " ");
         result = result.replaceAll("[a-z]*\\}+", " ");
-        result = result.replaceAll("\\,+", "\n");
         return result;
     }
 
     public void writeAmountOfJavaKeysIntoNewFile () throws IOException {
-        if (output == null) {
+        if (FileOutputStreamName == null) {
             throw new IOException("u must set output filestream");
         }
+        output = new FileOutputStream(FileOutputStreamName);
         String stringForOutput = getOutputStringFormat();
         byte[] outputBytes = stringForOutput.getBytes();
         output.write(outputBytes);
-    }
-
-    public String getInfo() {
-        return infoFromfile;
+        output.flush();
+        output.close();
     }
 }

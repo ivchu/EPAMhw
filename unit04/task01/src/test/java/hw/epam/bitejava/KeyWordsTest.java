@@ -27,13 +27,6 @@ public class KeyWordsTest {
     }
 
     @Test
-    public void loadInfoFromFile() throws Exception {
-        testingUnit.loadInfoFromFile();
-        System.out.println(testingUnit.getInfo());
-    }
-
-
-    @Test
     public void splitingJavaKeyWordTest() throws Exception {
         testingUnit.loadInfoFromFile();
         Map<String, Integer> testingMap = testingUnit.findKeyWordsInInfoFromFile();
