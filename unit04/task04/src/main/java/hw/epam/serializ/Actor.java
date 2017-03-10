@@ -33,4 +33,25 @@ public class Actor implements Serializable{
     public void addFilm(Film film){
         films.add(film);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Actor actor = (Actor) o;
+
+        if (age != actor.age) return false;
+        if (!name.equals(actor.name)) return false;
+        return films != null ? films.equals(actor.films) : actor.films == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + age;
+        result = 31 * result + (films != null ? films.hashCode() : 0);
+        return result;
+    }
 }
