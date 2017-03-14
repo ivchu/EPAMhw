@@ -1,5 +1,6 @@
 package hw.epam.properties;
 
+import hw.epam.properties.Exceptions.IllegalKeyForProperties;
 import hw.epam.properties.Exceptions.NoSuchPropertyFileException;
 
 import java.io.File;
@@ -47,7 +48,7 @@ public class PropertiesReader {
             if (currentProperties.containsKey(propertiesKeys.get(i))) {
                 result.append(propertiesKeys.get(i) + "=" + currentProperties.getProperty(propertiesKeys.get(i)) + "\n");
             } else {
-                throw new NoSuchPropertyFileException("в файле нету нужных нам ключей");
+                throw new IllegalKeyForProperties("в файле нету нужных нам ключей");
             }
         }
         String forreturn = result.toString();
