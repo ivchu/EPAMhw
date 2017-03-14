@@ -10,8 +10,8 @@ import java.io.IOException;
 import java.util.*;
 
 public class PropertiesReader {
-    String propertiesPath;
-    List<String> propertiesKeys = new ArrayList<>();
+    private String propertiesPath;
+    private List<String> propertiesKeys = new ArrayList<>();
 
     public void setDefaultPropertiesKeys() {
         propertiesKeys.add("password");
@@ -22,7 +22,7 @@ public class PropertiesReader {
         propertiesKeys.add(key);
     }
 
-    public void setPropertiesPath(String path) {
+    private void setPropertiesPath(String path) {
         File propertyFile = new File(path);
         if (propertyFile.isFile()) {
             propertiesPath = path;

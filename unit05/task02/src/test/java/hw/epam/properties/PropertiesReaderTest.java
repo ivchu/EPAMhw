@@ -27,8 +27,8 @@ public class PropertiesReaderTest {
     }
 
     @Test(expected = NoSuchPropertyFileException.class)
-    public void testingWrongPathThrowsRightException(){
+    public void testingWrongPathThrowsRightException() throws IOException {
         PropertiesReader propertiesReader = new PropertiesReader();
-        propertiesReader.setPropertiesPath("C://ivan//javafddas");
+        propertiesReader.readProperties("C://ivan//javafddas");
     }
 }
