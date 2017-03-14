@@ -52,6 +52,8 @@ public class FileSystemSlaveTest {
         Assert.assertTrue(isFileDone);
         File fileForCheck = new File("C://ivan//java//epamhw//unit05//task01//src/main//djigurda");
         Assert.assertTrue(fileForCheck.exists());
+        fileSystemSlave.remove("C://ivan//java//epamhw//unit05//task01//src/main//djigurda");
+
     }
 
     @Test
@@ -60,23 +62,23 @@ public class FileSystemSlaveTest {
         Assert.assertTrue(isFileDone);
         File fileForCheck = new File("C://ivan//java//epamhw//unit05//task01//src/main//djigurda.txt");
         Assert.assertTrue(fileForCheck.exists());
-    }
+        fileSystemSlave.remove("C://ivan//java//epamhw//unit05//task01//src/main//djigurda.txt");
 
-    @Test
-    public void removeFile() throws Exception {
-        boolean fileRemoved = fileSystemSlave.remove("C://ivan//java//epamhw//unit05//task01//src/main//djigurda.txt");
-        Assert.assertTrue(fileRemoved);
-        boolean dirRemoved = fileSystemSlave.remove("C://ivan//java//epamhw//unit05//task01//src/main//djigurda");
-        Assert.assertTrue(dirRemoved);
-        File fileForCheckFile = new File("C://ivan//java//epamhw//unit05//task01//src/main//djigurda.txt");
-        Assert.assertTrue(!fileForCheckFile.exists());
-        File fileForCheckDir = new File("C://ivan//java//epamhw//unit05//task01//src/main//djigurda");
-        Assert.assertTrue(!fileForCheckDir.exists());
     }
 
     @Test
     public void writeToFile() throws Exception {
-
+        fileSystemSlave.createFile("C://ivan//java//epamhw//unit05//task01//src/main", "djigurda.txt");
+        File fileForCheck = new File("C://ivan//java//epamhw//unit05//task01//src/main//djigurda.txt");
+        Assert.assertTrue(fileForCheck.exists());
+        String written = "Zhiv li djigurda?\n";
+        fileSystemSlave.writeToFile("C://ivan//java//epamhw//unit05//task01//src/main//djigurda.txt", "Zhiv li djigurda?", false);
+        String readStr = fileSystemSlave.readTextFileByPath("C://ivan//java//epamhw//unit05//task01//src/main//djigurda.txt");
+        Assert.assertEquals(written, readStr);
+        String writtenAppend = "Zhiv li djigurda?\nDa ofc\n";
+        fileSystemSlave.writeToFile("C://ivan//java//epamhw//unit05//task01//src/main//djigurda.txt", "Da ofc", true);
+        String readStrAppend = fileSystemSlave.readTextFileByPath("C://ivan//java//epamhw//unit05//task01//src/main//djigurda.txt");
+        Assert.assertEquals(writtenAppend, readStrAppend);
     }
 
 }

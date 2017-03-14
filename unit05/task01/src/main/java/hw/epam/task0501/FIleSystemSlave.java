@@ -75,6 +75,9 @@ public class FileSystemSlave {
         if (currentFile.exists() && currentFile.canWrite() && currentFile.isFile()) {
             try {
                 PrintWriter filePW = new PrintWriter(new FileOutputStream(currentFile, append));
+                if (append){
+                    filePW.print("\n");
+                }
                 filePW.print(info);
                 filePW.flush();
                 filePW.close();
