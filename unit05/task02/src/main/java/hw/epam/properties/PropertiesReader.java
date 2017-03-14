@@ -6,17 +6,15 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 public class PropertiesReader {
     String propertiesPath;
-    Set<String> propertiesKeys = new HashSet<>();
+    List<String> propertiesKeys = new ArrayList<>();
 
     public void setDefaultPropertiesKeys() {
-        propertiesKeys.add("username");
         propertiesKeys.add("password");
+        propertiesKeys.add("username");
     }
 
     public void addPropertiesKey(String key) {
@@ -32,17 +30,26 @@ public class PropertiesReader {
         }
     }
 
-    public String readProperties(String path) {
+    public String readProperties(String path) throws IOException {
         setPropertiesPath(path);
         Properties currentProperties = new Properties();
+        FileInputStream propertiesInput = new FileInputStream(propertiesPath);
+        StringBuffer result = new StringBuffer("");
         try {
-            FileInputStream propertiesInput = new FileInputStream(propertiesPath);
             currentProperties.load(propertiesInput);
         } catch (FileNotFoundException e) {
             System.out.println("probably i shouldn`t appear");
             e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+        }finally {
+            propertiesInput.close();
         }
+        for (int i = 0; i < propertiesKeys.size(); i++){
+            if (currentProperties.containsKey(propertiesKeys.get(i))){
+                result.append(propertiesKeys.get(i) + "=" + currentProperties.getProperty(propertiesKeys.get(i)) + "\n");
+            }else{
+                throw new NoSuchPropertyFileException("в файле нету нужных нам ключей");
+            }
+        }
+        return result.toString();
     }
 }
