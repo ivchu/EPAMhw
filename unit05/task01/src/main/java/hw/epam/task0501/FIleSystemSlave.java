@@ -51,4 +51,18 @@ public class FIleSystemSlave {
             return false;
         }
     }
+
+    public boolean createFile(String pathName, String fileName){
+        File currentPath = moveTo(pathName);
+        File newFile = new File(currentPath.getAbsolutePath() + "//" + fileName);
+        try {
+            return newFile.createNewFile();
+        } catch (IOException e) {
+            System.out.println("не смогли создать новый файл, но это ничего");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
 }
