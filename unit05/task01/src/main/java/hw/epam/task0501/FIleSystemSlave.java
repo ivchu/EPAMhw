@@ -43,16 +43,16 @@ public class FIleSystemSlave {
         return fileInfo;
     }
 
-    public boolean makeDirInPath(String pathName, String dirName){
+    public boolean makeDirInPath(String pathName, String dirName) {
         File currentFile = moveTo(pathName);
         if (currentFile.isDirectory()) {
             return currentFile.mkdir();
-        }else {
+        } else {
             return false;
         }
     }
 
-    public boolean createFile(String pathName, String fileName){
+    public boolean createFile(String pathName, String fileName) {
         File currentPath = moveTo(pathName);
         File newFile = new File(currentPath.getAbsolutePath() + "//" + fileName);
         try {
@@ -64,8 +64,8 @@ public class FIleSystemSlave {
         }
     }
 
-    public boolean removeFile(String filePath){
-        File currentFile = new File(filePath);
+    public boolean removeFile(String filePath) {
+        File currentFile = moveTo(filePath);
         if (currentFile.isFile() && currentFile.exists()) {
             return currentFile.delete();
         } else {
@@ -73,7 +73,23 @@ public class FIleSystemSlave {
         }
     }
 
-    
-
-
+    public boolean writeToFile(String fileName, String info, boolean append) {
+        File currentFile = moveTo(fileName);
+        if (currentFile.exists() && currentFile.canWrite() && currentFile.isFile()) {
+            try {
+                PrintWriter filePW = new PrintWriter(new FileOutputStream(currentFile, append));
+                filePW.print(info);
+                filePW.flush();
+                filePW.close();
+                return true;
+            } catch (FileNotFoundException e) {
+                System.out.println("мы таки не нашли файла, где писать надо");
+                e.printStackTrace();
+                return false;
+            }
+        } else {
+            System.out.println("таки что-то не то с файлом куда писать хотите вы");
+            return false;
+        }
+    }
 }
