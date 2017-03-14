@@ -2,7 +2,8 @@ package hw.epam.task0501;
 
 import java.io.*;
 
-public class FIleSystemSlave {
+public class FileSystemSlave {
+
     public File moveTo(String pathName) {
         return new File(pathName);
     }
@@ -55,9 +56,9 @@ public class FIleSystemSlave {
         }
     }
 
-    public boolean removeFile(String filePath) {
+    public boolean remove(String filePath) {
         File currentFile = moveTo(filePath);
-        if (currentFile.isFile() && currentFile.exists()) {
+        if (currentFile.exists()) {
             return currentFile.delete();
         } else {
             return false;

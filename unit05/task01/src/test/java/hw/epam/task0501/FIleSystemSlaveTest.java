@@ -3,7 +3,7 @@ package hw.epam.task0501;
 import org.junit.Test;
 
 
-public class FIleSystemSlaveTest {
+public class FileSystemSlaveTest {
     @Test
     public void moveTo() throws Exception {
 
