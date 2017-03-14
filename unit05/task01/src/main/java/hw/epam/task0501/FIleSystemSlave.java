@@ -64,5 +64,16 @@ public class FIleSystemSlave {
         }
     }
 
+    public boolean removeFile(String filePath){
+        File currentFile = new File(filePath);
+        if (currentFile.isFile() && currentFile.exists()) {
+            return currentFile.delete();
+        } else {
+            return false;
+        }
+    }
+
+    
+
 
 }
