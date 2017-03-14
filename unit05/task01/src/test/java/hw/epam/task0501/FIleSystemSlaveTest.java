@@ -64,7 +64,14 @@ public class FileSystemSlaveTest {
 
     @Test
     public void removeFile() throws Exception {
-
+        boolean fileRemoved = fileSystemSlave.remove("C://ivan//java//epamhw//unit05//task01//src/main//djigurda.txt");
+        Assert.assertTrue(fileRemoved);
+        boolean dirRemoved = fileSystemSlave.remove("C://ivan//java//epamhw//unit05//task01//src/main//djigurda");
+        Assert.assertTrue(dirRemoved);
+        File fileForCheckFile = new File("C://ivan//java//epamhw//unit05//task01//src/main//djigurda.txt");
+        Assert.assertTrue(!fileForCheckFile.exists());
+        File fileForCheckDir = new File("C://ivan//java//epamhw//unit05//task01//src/main//djigurda");
+        Assert.assertTrue(!fileForCheckDir.exists());
     }
 
     @Test
