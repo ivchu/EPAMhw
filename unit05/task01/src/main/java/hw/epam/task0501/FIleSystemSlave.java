@@ -16,7 +16,7 @@ public class FileSystemSlave {
         File currentFile = moveTo(pathName);
         String[] files = currentFile.list();
         StringBuffer buff = new StringBuffer("");
-        for (String s: files){
+        for (String s : files) {
             buff.append(s + "\n");
         }
         return buff.toString();
@@ -30,7 +30,7 @@ public class FileSystemSlave {
             StringBuffer lines = new StringBuffer("");
             String line;
             while ((line = reader.readLine()) != null) {
-                lines.append(line);
+                lines.append(line + "\n");
             }
             fileInfo = lines.toString();
         } catch (FileNotFoundException e) {
@@ -44,13 +44,10 @@ public class FileSystemSlave {
     }
 
     public boolean makeDirInPath(String pathName, String dirName) {
-        File currentFile = moveTo(pathName);
-        if (currentFile.isDirectory()) {
-            return currentFile.mkdir();
-        } else {
-            return false;
-        }
+        File currentFile = new File(pathName + "//" + dirName);
+        return currentFile.mkdir();
     }
+
 
     public boolean createFile(String pathName, String fileName) {
         File currentPath = moveTo(pathName);
