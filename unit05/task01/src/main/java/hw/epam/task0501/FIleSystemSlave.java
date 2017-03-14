@@ -5,13 +5,21 @@ import java.io.*;
 public class FileSystemSlave {
 
     public File moveTo(String pathName) {
-        return new File(pathName);
+        File newFile = new File(pathName);
+        if (newFile.exists()) {
+            return newFile;
+        }
+        throw new NoPathRuntimeException("не врите и запишите нормальный путь к файлу");
     }
 
-    public String[] getPathFiles(String pathName) {
+    public String getPathFiles(String pathName) {
         File currentFile = moveTo(pathName);
         String[] files = currentFile.list();
-        return files;
+        StringBuffer buff = new StringBuffer("");
+        for (String s: files){
+            buff.append(s + "\n");
+        }
+        return buff.toString();
     }
 
     public String readTextFileByPath(String filePath) {
