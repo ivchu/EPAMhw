@@ -3,15 +3,6 @@ package hw.epam.task0501;
 import java.io.*;
 
 public class FIleSystemSlave {
-
-    public static void main(String[] args) throws IOException {
-        File file = new File("C://ivan//java//epamhw//unit05//task01//src//main");
-        FileInputStream inputStream = new FileInputStream(file);
-        byte[] gg = new byte[inputStream.available()];
-        inputStream.read(gg);
-
-    }
-
     public File moveTo(String pathName) {
         return new File(pathName);
     }
