@@ -40,16 +40,17 @@ public class PropertiesReader {
         } catch (FileNotFoundException e) {
             System.out.println("probably i shouldn`t appear");
             e.printStackTrace();
-        }finally {
+        } finally {
             propertiesInput.close();
         }
-        for (int i = 0; i < propertiesKeys.size(); i++){
-            if (currentProperties.containsKey(propertiesKeys.get(i))){
+        for (int i = 0; i < propertiesKeys.size(); i++) {
+            if (currentProperties.containsKey(propertiesKeys.get(i))) {
                 result.append(propertiesKeys.get(i) + "=" + currentProperties.getProperty(propertiesKeys.get(i)) + "\n");
-            }else{
+            } else {
                 throw new NoSuchPropertyFileException("в файле нету нужных нам ключей");
             }
         }
-        return result.toString();
+        String forreturn = result.toString();
+        return forreturn.substring(0, forreturn.length() - 1);
     }
 }
