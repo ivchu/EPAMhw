@@ -56,9 +56,9 @@ public class FileSystemSlaveTest {
 
     @Test
     public void createFile() throws Exception {
-        boolean isFileDone = fileSystemSlave.makeDirInPath("C://ivan//java//epamhw//unit05//task01//src/main", "djigurda");
+        boolean isFileDone = fileSystemSlave.createFile("C://ivan//java//epamhw//unit05//task01//src/main", "djigurda.txt");
         Assert.assertTrue(isFileDone);
-        File fileForCheck = new File("C://ivan//java//epamhw//unit05//task01//src/main//djigurda");
+        File fileForCheck = new File("C://ivan//java//epamhw//unit05//task01//src/main//djigurda.txt");
         Assert.assertTrue(fileForCheck.exists());
     }
 
