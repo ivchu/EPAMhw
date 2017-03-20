@@ -22,7 +22,12 @@ public class Bank {
     static void transferMoney(Account from, Account to, int amount) {
         synchronized (from) {
             synchronized (to) {
-
+                final int currentMoneyTo = to.getAmountOfMoney();
+                final int currentMoneyFrom = from.getAmountOfMoney();
+                final int newAmountFrom = currentMoneyFrom - amount;
+                final int newAmountTo = currentMoneyTo + amount;
+                from.setAmountOfMoney(newAmountFrom);
+                to.setAmountOfMoney(newAmountTo);
             }
         }
 
@@ -30,7 +35,9 @@ public class Bank {
 
     static void depositMoney(Account to, int amount) {
         synchronized (to) {
-
+            final int currentMoney = to.getAmountOfMoney();
+            final int newAmount = amount + currentMoney;
+            to.setAmountOfMoney(newAmount);
         }
     }
 

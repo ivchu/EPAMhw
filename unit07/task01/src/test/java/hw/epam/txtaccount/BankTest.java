@@ -2,9 +2,7 @@ package hw.epam.txtaccount;
 
 import org.junit.Test;
 
-/**
- * Created by MM8 on 20.03.2017.
- */
+
 public class BankTest {
     @Test
     public void createAccount() throws Exception {
@@ -13,5 +11,24 @@ public class BankTest {
         bank.createAccount();
         System.out.println(bank.getAccounts());
     }
+
+    @Test
+    public void depositMoney() throws Exception {
+        Bank bank = new Bank();
+        bank.createAccount();
+        bank.createAccount();
+        System.out.println(bank.getAccounts());
+    }
+
+
+    @Test
+    public void transferMoney() throws Exception {
+        Bank bank = new Bank();
+        bank.createAccount();
+        bank.createAccount();
+        System.out.println(bank.getAccounts());
+    }
+
+
 
 }
