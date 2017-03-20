@@ -1,13 +1,10 @@
 package hw.epam.txtaccount;
 
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 public class Bank {
-
-    private volatile int idForCreation = 0;
+    private Set<Integer> accountIds = new HashSet<>();
     private List<Account> accounts = new ArrayList<>();
 
     public void transfer(Account from, Account to, int amountOfMoney) {
@@ -41,9 +38,14 @@ public class Bank {
         }
     }
 
-    public void createAccount() {
-        Account newAccount = new Account(idForCreation++, 0);
-        accounts.add(newAccount);
+    public void createAccount(Integer accountId, Integer amountOfMoney) {
+        synchronized (accountIds) {
+            Account newAccount = new Account(accountId, amountOfMoney);
+            accountIds.add(accountId);
+            synchronized (accounts) {
+                accounts.add(newAccount);
+            }
+        }
     }
 
     public List<Account> getAccounts() {
