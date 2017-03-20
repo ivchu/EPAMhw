@@ -14,6 +14,6 @@ public class Transferer extends Thread {
 
     @Override
     public void run(){
-
+        Bank.transferMoney(accountFrom, accountTo, howMuch);
     }
 }

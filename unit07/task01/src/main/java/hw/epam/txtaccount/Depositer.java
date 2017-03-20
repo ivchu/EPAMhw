@@ -12,6 +12,6 @@ public class Depositer extends Thread{
 
     @Override
     public void run() {
-
+        Bank.depositMoney(accountTo, howMuch);
     }
 }

@@ -2,32 +2,44 @@ package hw.epam.txtaccount;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Bank {
-    public static void main(String[] args) {
-        System.out.println(new Account(15, 20).toString());
-    }
+
     private volatile int idForCreation = 0;
     private List<Account> accounts = new ArrayList<>();
 
-    public void transferMoney(Account from, Account to){
-        synchronized (from){
-            synchronized (to){
+    public void transfer(Account from, Account to, int amountOfMoney) {
+        Transferer transferer = new Transferer(from, to, amountOfMoney);
+        transferer.start();
+    }
+
+    public void deposit(Account to, int amount) {
+        Depositer depositer = new Depositer(to, amount);
+    }
+
+    static void transferMoney(Account from, Account to, int amount) {
+        synchronized (from) {
+            synchronized (to) {
 
             }
         }
 
     }
 
-    public void depositMoney(Account to){
-        synchronized (to){
+    static void depositMoney(Account to, int amount) {
+        synchronized (to) {
 
         }
     }
 
-    public void createAccount(){
+    public void createAccount() {
         Account newAccount = new Account(idForCreation++, 0);
         accounts.add(newAccount);
+    }
+
+    public List<Account> getAccounts() {
+        return Collections.unmodifiableList(accounts);
     }
 }
