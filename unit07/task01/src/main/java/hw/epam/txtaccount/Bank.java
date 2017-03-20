@@ -8,12 +8,12 @@ public class Bank {
     private List<Account> accounts = new ArrayList<>();
 
     public void transfer(Account from, Account to, int amountOfMoney) {
-        Transferer transferer = new Transferer(from, to, amountOfMoney);
-        transferer.start();
+        Transferee transferee = new Transferee(from, to, amountOfMoney);
+        transferee.start();
     }
 
     public void deposit(Account to, int amount) {
-        Depositer depositer = new Depositer(to, amount);
+        Depositor depositor = new Depositor(to, amount);
     }
 
     static void transferMoney(Account from, Account to, int amount) {
@@ -38,7 +38,7 @@ public class Bank {
         }
     }
 
-    public void createAccount(Integer accountId, Integer amountOfMoney) {
+    private void createAccount(Integer accountId, Integer amountOfMoney) {
         synchronized (accountIds) {
             Account newAccount = new Account(accountId, amountOfMoney);
             accountIds.add(accountId);
