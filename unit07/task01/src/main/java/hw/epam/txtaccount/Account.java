@@ -10,14 +10,7 @@ public class Account {
         this.amountOfMoney = amountOfMoney;
     }
 
-    void readInfoFromFile(){
-
-    }
-
-    void writeInfoToFile(){
-
-    }
-
+   
     public int getAccountId() {
         return accountId;
     }
@@ -32,5 +25,30 @@ public class Account {
 
     void setAmountOfMoney(int amountOfMoney) {
         this.amountOfMoney = amountOfMoney;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = accountId;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Account account = (Account) o;
+
+        if (accountId != account.accountId) return false;
+        return amountOfMoney == account.amountOfMoney;
+    }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "accountId=" + accountId +
+                ", amountOfMoney=" + amountOfMoney +
+                '}';
     }
 }
