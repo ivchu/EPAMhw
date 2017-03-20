@@ -14,6 +14,7 @@ public class Bank {
 
     public void deposit(Account to, int amount) {
         Depositor depositor = new Depositor(to, amount);
+        depositor.start();
     }
 
     static void transferMoney(Account from, Account to, int amount) {
@@ -38,13 +39,14 @@ public class Bank {
         }
     }
 
-    private void createAccount(Integer accountId, Integer amountOfMoney) {
+    public Account createAccount(Integer accountId, Integer amountOfMoney) {
         synchronized (accountIds) {
             Account newAccount = new Account(accountId, amountOfMoney);
             accountIds.add(accountId);
             synchronized (accounts) {
                 accounts.add(newAccount);
             }
+            return newAccount;
         }
     }
 

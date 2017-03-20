@@ -15,10 +15,6 @@ public class Account {
         return accountId;
     }
 
-    private void setAccountId(int accountId) {
-        this.accountId = accountId;
-    }
-
     public int getAmountOfMoney() {
         return amountOfMoney;
     }
