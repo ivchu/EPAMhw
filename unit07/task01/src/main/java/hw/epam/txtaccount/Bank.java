@@ -55,7 +55,7 @@ public class Bank {
     }
 
     public void readTransactionsFromFile(String fileName) throws IOException {
-        String[] lines = readInfoAboutTransactions(fileName).split("\n");
+        String[] lines = readInfoAboutTransactions(fileName).split("\\r\\n");
         for (String s: lines) {
             System.out.println(s);
         }
