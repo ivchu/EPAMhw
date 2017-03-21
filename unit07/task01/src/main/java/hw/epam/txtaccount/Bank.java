@@ -11,7 +11,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Bank {
-    private volatile HashMap<Integer, Account> accounts = new HashMap<>();
+    private HashMap<Integer, Account> accounts = new HashMap<>();
     private static Lock lock = new ReentrantLock();
 
 
