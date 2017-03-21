@@ -11,12 +11,24 @@ public class Bank {
 
     private volatile HashMap<Integer, Account> accounts = new HashMap<>();
 
-    public void transfer(Account from, Account to, int amountOfMoney) {
-        Transferee transferee = new Transferee(from, to, amountOfMoney);
+    public void transfer(Account from, Account to, int amount) {
+        if (from == null || to == null){
+            throw new NullPointerException("Accounts cant be null in transfer");
+        }
+        if (amount < 0){
+            throw new IllegalArgumentException("U cant transfer <0, in transfer");
+        }
+        Transferee transferee = new Transferee(from, to, amount);
         transferee.start();
     }
 
     public void deposit(Account to, int amount) {
+        if (to == null) {
+            throw new NullPointerException("Accounts cant be null in deposit");
+        }
+        if (amount < 0){
+            throw new IllegalArgumentException("U cant deposit <0, in deposit");
+        }
         Depositor depositor = new Depositor(to, amount);
         depositor.start();
     }
@@ -27,6 +39,9 @@ public class Bank {
                 final int currentMoneyTo = to.getAmountOfMoney();
                 final int currentMoneyFrom = from.getAmountOfMoney();
                 final int newAmountFrom = currentMoneyFrom - amount;
+                if (newAmountFrom < 0){
+                    throw new IllegalArgumentException("Account balance cant become < 0 after transaction in transferMoney");
+                }
                 final int newAmountTo = currentMoneyTo + amount;
                 from.setAmountOfMoney(newAmountFrom);
                 to.setAmountOfMoney(newAmountTo);
