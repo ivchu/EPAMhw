@@ -2,21 +2,18 @@ package hw.epam.multithreading.properties;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Properties;
 
 public class PropertiesReaderMultiThreading {
-    Properties currentProperties;
-    private List<String> propertiesKeys = new ArrayList<>();
+    private String path;
 
-
-    public void addPropertiesKey(String key) {
-        propertiesKeys.add(key);
+    public PropertiesReaderMultiThreading(String path) {
+        this.path = path;
     }
 
-    public void readProperties(String path) throws IOException {
+    public String readProperty(String key) throws IOException {
         FileInputStream propertiesInput = new FileInputStream(path);
+        Properties currentProperties = new Properties();
         synchronized (Properties.class) {
             try {
                 currentProperties.load(propertiesInput);
@@ -24,5 +21,6 @@ public class PropertiesReaderMultiThreading {
                 propertiesInput.close();
             }
         }
+        return (String) currentProperties.get(key);
     }
 }
