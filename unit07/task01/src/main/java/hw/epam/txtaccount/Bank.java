@@ -4,18 +4,22 @@ package hw.epam.txtaccount;
 import javax.naming.OperationNotSupportedException;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Bank {
-
     private volatile HashMap<Integer, Account> accounts = new HashMap<>();
+    private static Lock lock = new ReentrantLock();
+
 
     public void transfer(Account from, Account to, int amount) {
-        if (from == null || to == null){
+        if (from == null || to == null) {
             throw new NullPointerException("Accounts cant be null in transfer");
         }
-        if (amount < 0){
+        if (amount < 0) {
             throw new IllegalArgumentException("U cant transfer <0, in transfer");
         }
         Transferee transferee = new Transferee(from, to, amount);
@@ -26,7 +30,7 @@ public class Bank {
         if (to == null) {
             throw new NullPointerException("Accounts cant be null in deposit");
         }
-        if (amount < 0){
+        if (amount < 0) {
             throw new IllegalArgumentException("U cant deposit <0, in deposit");
         }
         Depositor depositor = new Depositor(to, amount);
@@ -39,7 +43,7 @@ public class Bank {
                 final int currentMoneyTo = to.getAmountOfMoney();
                 final int currentMoneyFrom = from.getAmountOfMoney();
                 final int newAmountFrom = currentMoneyFrom - amount;
-                if (newAmountFrom < 0){
+                if (newAmountFrom < 0) {
                     throw new IllegalArgumentException("Account balance cant become < 0 after transaction in transferMoney");
                 }
                 final int newAmountTo = currentMoneyTo + amount;
@@ -47,10 +51,31 @@ public class Bank {
                 to.setAmountOfMoney(newAmountTo);
             }
         }
+    }
 
+    static void transferMoneyConcurr(Account from, Account to, int amount) {
+        lock.lock();
+        final int currentMoneyTo = to.getAmountOfMoney();
+        final int currentMoneyFrom = from.getAmountOfMoney();
+        final int newAmountFrom = currentMoneyFrom - amount;
+        if (newAmountFrom < 0) {
+            throw new IllegalArgumentException("Account balance cant become < 0 after transaction in transferMoney");
+        }
+        final int newAmountTo = currentMoneyTo + amount;
+        from.setAmountOfMoney(newAmountFrom);
+        to.setAmountOfMoney(newAmountTo);
+        lock.unlock();
     }
 
     static void depositMoney(Account to, int amount) {
+        lock.lock();
+        final int currentMoney = to.getAmountOfMoney();
+        final int newAmount = amount + currentMoney;
+        to.setAmountOfMoney(newAmount);
+        lock.unlock();
+    }
+
+    static void depositMoneyConcurr(Account to, int amount) {
         synchronized (to) {
             final int currentMoney = to.getAmountOfMoney();
             final int newAmount = amount + currentMoney;
@@ -71,7 +96,7 @@ public class Bank {
 
     public void readTransactionsFromFile(String fileName) throws IOException, OperationNotSupportedException {
         String[] lines = readInfoAboutTransactions(fileName).split("\\r\\n");
-        for (String s : lines)  {
+        for (String s : lines) {
             String[] partsOfTransaction = s.split(" ");
             String transactiontype = partsOfTransaction[0].toLowerCase();
             synchronized (accounts) {
@@ -118,6 +143,6 @@ public class Bank {
     }
 
     public Map<Integer, Account> getAccounts() {
-        return accounts;
+        return Collections.unmodifiableMap(accounts);
     }
 }
