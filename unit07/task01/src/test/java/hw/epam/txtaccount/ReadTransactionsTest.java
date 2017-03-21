@@ -5,19 +5,12 @@ import org.junit.Test;
 public class ReadTransactionsTest {
     @Test
     public void readTransactionsFromFile() throws Exception {
-        String[] test1 = ("hhh" + "\n" +
-                "ttt" + "\n" +
-                "fdgfd" + "\n" +
-                "dgdf").split("\n");
-        for (String test: test1){
-
-            System.out.println(test);
-        }
-        System.out.println(new Bank().readInfoAboutTransactions(
-                "C://ivan//java//epamhw//unit07//task01//src//transactions/transactions.txt"));
-        new Bank().readTransactionsFromFile(
+        Bank testingUnit = new Bank();
+        testingUnit.readTransactionsFromFile(
                 "C://ivan//java//epamhw//unit07//task01//src//transactions/transactions.txt");
-
+        System.out.println(testingUnit.getAccounts());
+        Thread.sleep(100);
+        System.out.println(testingUnit.getAccounts());
     }
 
 }
