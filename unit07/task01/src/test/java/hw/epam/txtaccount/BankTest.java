@@ -47,6 +47,4 @@ public class BankTest {
         Thread.sleep(1);
         System.out.println(bank1.getAccounts());
     }
-
-
 }

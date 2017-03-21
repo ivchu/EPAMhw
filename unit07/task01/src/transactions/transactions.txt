@@ -1,10 +1,16 @@
-transfer 0 1 55
-transfer 1 2 45
-transfer 3 1 35
-transfer 5 4 25
-transfer 1 0 15
 deposit 6 44
 deposit 1 14
 deposit 4 24
 deposit 6 34
 deposit 4 4
+deposit 0 44
+deposit 1 14
+deposit 3 24
+deposit 5 34
+deposit 4 4
+transfer 0 1 55
+transfer 1 2 45
+transfer 3 1 35
+transfer 5 4 25
+transfer 1 0 15
+transfer 7 0 15
