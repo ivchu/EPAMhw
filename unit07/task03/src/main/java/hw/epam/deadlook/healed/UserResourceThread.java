@@ -9,14 +9,14 @@ public class UserResourceThread {
         IntegerSetterGetter t3 = new IntegerSetterGetter("3", res);
         IntegerSetterGetter t4 = new IntegerSetterGetter("4", res);
         IntegerSetterGetter t5 = new IntegerSetterGetter("5", res);
-        
+
         t1.start();
         t2.start();
         t3.start();
         t4.start();
         t5.start();
 
-        Thread.sleep(100);
+        Thread.sleep(10000);
 
         t1.stopThread();
         t2.stopThread();

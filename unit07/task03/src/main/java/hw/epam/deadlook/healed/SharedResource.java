@@ -1,14 +1,14 @@
 package hw.epam.deadlook.healed;
 
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class SharedResource {
     private List<Integer> list;
 
     public SharedResource() {
-        list = new ArrayList<Integer>();
+        list = new CopyOnWriteArrayList<>();
     }
 
     public void setElement(Integer element) {
@@ -22,5 +22,8 @@ public class SharedResource {
         return null;
     }
 
+    public boolean isEmpty(){
+        return list.isEmpty();
+    }
 
 }

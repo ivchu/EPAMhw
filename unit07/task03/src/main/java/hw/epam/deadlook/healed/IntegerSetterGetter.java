@@ -7,6 +7,7 @@ public class IntegerSetterGetter extends Thread {
     private SharedResource resource;
     private boolean run;
 
+
     private Random rand = new Random();
 
     public IntegerSetterGetter(String name, SharedResource resource) {
@@ -26,7 +27,9 @@ public class IntegerSetterGetter extends Thread {
             while (run) {
                 action = rand.nextInt(1000);
                 if (action % 2 == 0) {
-                    getIntegersFromResource();
+                    if (!resource.isEmpty()) {
+                        getIntegersFromResource();
+                    }
                 } else {
                     setIntegersIntoResource();
                 }
@@ -39,7 +42,6 @@ public class IntegerSetterGetter extends Thread {
 
     private void getIntegersFromResource() throws InterruptedException {
         Integer number;
-
         synchronized (resource) {
             System.out.println("Поток " + getName()
                     + " хочет извлечь число.");
