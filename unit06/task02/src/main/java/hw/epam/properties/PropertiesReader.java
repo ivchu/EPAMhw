@@ -1,6 +1,7 @@
 package hw.epam.properties;
 
 
+import hw.epam.properties.Exceptions.IllegalKeyForProperties;
 import hw.epam.properties.Exceptions.NoSuchPropertyFileException;
 
 import java.io.File;
@@ -13,7 +14,7 @@ import java.util.Map;
 import java.util.Properties;
 
 public class PropertiesReader {
-    private Map<String, String> properties;
+    private Map<String, String> properties = new HashMap<>();
 
     public PropertiesReader() {
     }
@@ -61,6 +62,14 @@ public class PropertiesReader {
 
 
     public String getProperty(String key) {
-        return null;
+        if (key == null){
+             throw new NullPointerException("Key can`t be null");
+        }
+        if (properties.containsKey(key)) {
+            String property = properties.get(key);
+            return property;
+        } else {
+            throw new IllegalKeyForProperties("no such key in properties");
+        }
     }
 }

@@ -5,11 +5,13 @@ import hw.epam.properties.Exceptions.IllegalKeyForProperties;
 import hw.epam.properties.Exceptions.NoSuchPropertyFileException;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@FixMethodOrder
 public class PropertiesReaderTest {
     Map<String, String> testingResources;
     PropertiesReader testingUnit;
@@ -38,14 +40,21 @@ public class PropertiesReaderTest {
     }
 
     @Test(expected = IllegalKeyForProperties.class)
-    public void testThatGetPropertyThrowsIllegalKeyForPeopertiesExceptionForWrongKey(){
+    public void testThatGetPropertyThrowsIllegalKeyForPropertiesExceptionForWrongKey(){
         testingUnit.getProperty("ggg");
     }
 
     @Test
     public void testThatGetPropertyWorksWell(){
-        Assert.assertEquals(testingResources.get("name"), testingUnit.getProperty("name"));
-        Assert.assertEquals(testingResources.get("password"), testingUnit.getProperty("password"));
+        PropertiesReader getTestReader = new PropertiesReader();
+        getTestReader.readPropertiesInMap(path);
+        Assert.assertEquals(testingResources.get("name"), getTestReader.getProperty("name"));
+        Assert.assertEquals(testingResources.get("password"), getTestReader.getProperty("password"));
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testThatGetPropertyThrowsNullPointerExceptionForNullKey(){
+        testingUnit.getProperty(null);
     }
 
 }
