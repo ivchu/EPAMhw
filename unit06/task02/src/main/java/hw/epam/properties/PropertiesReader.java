@@ -13,12 +13,23 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
+/**
+ * Class which can load properties into map, and then let u works with properties using HashMap
+ */
+
 public class PropertiesReader {
     private Map<String, String> properties = new HashMap<>();
 
     public PropertiesReader() {
     }
 
+    /**
+     * Using this method u can load a property file into hashmap which stored in the class, and then
+     * use method getProperty, to get Properties by key, also this method returns unmodifiableMap with
+     * keys and values of the properties File, so u can save it, and work with it.
+     * @param path this is a path of the properties File
+     * @return unmodifiableMap which contains keys and value from properties File
+     */
     public Map<String, String> readPropertiesInMap(String path) {
         if (path == null) {
             throw new NullPointerException();
