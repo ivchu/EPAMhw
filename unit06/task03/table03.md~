@@ -18,7 +18,7 @@ class HeadDoctor extends Doctor{}
 ||||
 |`List<Doctor> list1= new ArrayList<Doctor>();`|X||
 |`List<MedicalStaff> list2 = new ArrayList<Doctor>();`||X|
-|`List<Doctor> list3 = new ArrayList<MedicalStaff>();`||X|
+|`List<Doctor> list3 = new ArrayList<MedicalStaff>()`;`||X|
 |`List<Object> list4 = new ArrayList<Doctor>();`||X|
 |`List<Object> list5 = new ArrayList<Object>();`|X||
 
