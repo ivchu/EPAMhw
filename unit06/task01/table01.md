@@ -9,3 +9,8 @@
 |HashSet|No|No|No|No|Yes|No|No|
 |LinkedHashSet|Yes|No|No|No|Yes|No|No|
 |TreeSet|Yes|No|No|No|No|No|No|
+|TreeMap|Yes|No|Yes|No|No|No|No|
+|HashMap|No|Yes|Yes|No|Yes|No|No|
+|LinkedHashMap|Yes|Yes|Yes|No|Yes|No|No|
+|WeakHashMap|No|Yes|Yes|No|Yes|No|No|
+|Hashtable|No|Yes|Yes|No|No|No|No|
