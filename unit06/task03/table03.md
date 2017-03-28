@@ -16,8 +16,8 @@ class HeadDoctor extends Doctor{}
 |`Nurse nurse = new Doctor();`||X||
 |`Object object2 = new Nurse();`|X|||
 |||||
-|`List<Doctor> list1= new ArrayList<Doctor>();`|X||Тип Generic в коллекции, должен совпадать|
-|`List<MedicalStaff> list2 = new ArrayList<Doctor>();`||X|Можно использовать Genric вида, <? extends MedicalStaff>|
-|`List<Doctor> list3 = new ArrayList<MedicalStaff>();`||X|Можно использовать Genric вида <? super Doctor>|
-|`List<Object> list4 = new ArrayList<Doctor>();`||X|Можно использовать Genric вида, <? extends Object>|
+|`List<Doctor> list1= new ArrayList<Doctor>();`|X||РўРёРї Generic РІ РєРѕР»Р»РµРєС†РёРё, РґРѕР»Р¶РµРЅ СЃРѕРІРїР°РґР°С‚СЊ|
+|`List<MedicalStaff> list2 = new ArrayList<Doctor>();`||X|РњРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Genric РІРёРґР°, <? extends MedicalStaff>|
+|`List<Doctor> list3 = new ArrayList<MedicalStaff>();`||X|РњРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Genric РІРёРґР° <? super Doctor>|
+|`List<Object> list4 = new ArrayList<Doctor>();`||X|РњРѕР¶РЅРѕ РёСЃРїРѕР»СЊР·РѕРІР°С‚СЊ Genric РІРёРґР°, <? extends Object>|
 |`List<Object> list5 = new ArrayList<Object>();`|X|||
